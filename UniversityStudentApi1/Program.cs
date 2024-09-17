@@ -32,12 +32,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Configure the HTTP request pipeline.
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Initialize data using a scoped service provider
 using (var scope = app.Services.CreateScope())
 {
     var dataService = scope.ServiceProvider.GetRequiredService<DataService>();

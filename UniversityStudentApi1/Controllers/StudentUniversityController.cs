@@ -21,6 +21,13 @@ namespace UniversityStudentApi1.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudentToUniversity(int studentId, int universityId)
         {
+            var student = await _context.Students.FindAsync(studentId);
+            var university = await _context.Universities.FindAsync(universityId);
+
+            if (student == null || university == null)
+            {
+                return NotFound("Student or University not found.");
+            }
             var studentUniversity = new StudentUniversity
             {
                 StudentId = studentId,

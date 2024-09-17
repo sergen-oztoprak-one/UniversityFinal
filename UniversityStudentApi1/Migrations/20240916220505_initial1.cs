@@ -40,7 +40,8 @@ namespace UniversityStudentApi1.Migrations
                 columns: table => new
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
-                    UniversityId = table.Column<int>(type: "int", nullable: false)
+                    UniversityId = table.Column<int>(type: "int", nullable: false),
+                    StudentUniversityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

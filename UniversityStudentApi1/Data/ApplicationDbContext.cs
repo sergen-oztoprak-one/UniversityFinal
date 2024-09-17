@@ -22,12 +22,12 @@
 
             modelBuilder.Entity<StudentUniversity>()
                 .HasOne(su => su.Student)
-                .WithMany(s => s.StudentUniversities)
+                .WithMany()
                 .HasForeignKey(su => su.StudentId);
 
             modelBuilder.Entity<StudentUniversity>()
                 .HasOne(su => su.University)
-                .WithMany(u => u.StudentUniversities)
+                .WithMany()
                 .HasForeignKey(su => su.UniversityId);
 
             modelBuilder.Entity<Student>()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using UniversityStudentApi1.Data;
 using UniversityStudentApi1.Models;
@@ -18,13 +19,6 @@ namespace UniversityStudentApi1.Controllers
             
             _studentRepository = studentRepository;
         }
-       //.
-
-       
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -55,31 +49,25 @@ namespace UniversityStudentApi1.Controllers
             return CreatedAtAction(nameof(Get), new { id = student.StudentId }, student);
         }
 
-        [HttpPut("{StudentId}")]
-        public async Task<IActionResult> Put(int StudentId, [FromBody] Student student)
-        {
-            if (StudentId != student.StudentId)
+            [HttpPut("{studentId}")]
+            public async Task<IActionResult> Put(int studentId, [FromBody] Student student)
             {
-                return BadRequest("Student ID mismatch.");
-            }
-
-            // ModelState'i kontrol et
+           
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
+                {
+                    return BadRequest(ModelState);
+                }
+                var existingStudent = await _studentRepository.GetByIdAsync(studentId); 
+                if (existingStudent == null)
+                {
+                    return NotFound();
+                }
+                existingStudent.Name = student.Name;    
+                existingStudent.Age = student.Age;
+                await _studentRepository.UpdateAsync(existingStudent);
+                    return NoContent();
             }
 
-            // Öğrenci olup olmadığını kontrol et
-            var existingStudent = await _studentRepository.GetByIdAsync(StudentId);
-            if (existingStudent == null)
-            {
-                return NotFound();
-            }
-
-            // Öğrenci güncellemesini yap
-            await _studentRepository.UpdateAsync(student);
-            return NoContent();
-        }
 
 
         [HttpDelete("{StudentId}")]

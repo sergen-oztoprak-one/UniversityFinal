@@ -107,6 +107,9 @@ namespace UniversityStudentApi1.Migrations
                     b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
+                    b.Property<int>("StudentUniversityId")
+                        .HasColumnType("int");
+
                     b.HasKey("StudentId", "UniversityId");
 
                     b.HasIndex("UniversityId");
@@ -163,13 +166,13 @@ namespace UniversityStudentApi1.Migrations
             modelBuilder.Entity("UniversityStudentApi1.Models.StudentUniversity", b =>
                 {
                     b.HasOne("UniversityStudentApi1.Models.Student", "Student")
-                        .WithMany("StudentUniversities")
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("UniversityStudentApi1.Models.University", "University")
-                        .WithMany("StudentUniversities")
+                        .WithMany()
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -177,16 +180,6 @@ namespace UniversityStudentApi1.Migrations
                     b.Navigation("Student");
 
                     b.Navigation("University");
-                });
-
-            modelBuilder.Entity("UniversityStudentApi1.Models.Student", b =>
-                {
-                    b.Navigation("StudentUniversities");
-                });
-
-            modelBuilder.Entity("UniversityStudentApi1.Models.University", b =>
-                {
-                    b.Navigation("StudentUniversities");
                 });
 #pragma warning restore 612, 618
         }

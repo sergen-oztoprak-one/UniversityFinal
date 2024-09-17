@@ -24,7 +24,8 @@ namespace UniversityStudentApi1.Models
 
         [JsonProperty("web_pages")]
         public List<string>? WebPages { get; set; }
-        public ICollection<StudentUniversity> StudentUniversities { get; set; }
+        //[JsonIgnore]
+       // public ICollection<StudentUniversity> StudentUniversities { get; set; }
 
     }
 

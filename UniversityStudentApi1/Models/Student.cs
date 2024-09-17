@@ -6,9 +6,9 @@ namespace UniversityStudentApi1.Models
 {
     public class Student
     {
-        [Key]
-        [JsonProperty("id")]
-        public int StudentId { get; }
+            [Key]
+            [JsonProperty("id")]
+            public int StudentId { get; }
 
 
         [Required]
@@ -22,8 +22,8 @@ namespace UniversityStudentApi1.Models
         public List<string> Courses { get; set; }
         public double GPA { get; set; }
         public string Image { get; set; }
-        [JsonIgnore]
-        public ICollection<StudentUniversity> StudentUniversities { get; set; }
+       // [JsonIgnore]
+       // public ICollection<StudentUniversity> StudentUniversities { get; set; }
 
 
 

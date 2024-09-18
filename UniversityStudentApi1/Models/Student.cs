@@ -9,8 +9,6 @@ namespace UniversityStudentApi1.Models
             [Key]
             [JsonProperty("id")]
             public int StudentId { get; }
-
-
         [Required]
         public string Name { get; set; }
         public int Age { get; set; }
@@ -22,13 +20,7 @@ namespace UniversityStudentApi1.Models
         public List<string> Courses { get; set; }
         public double GPA { get; set; }
         public string Image { get; set; }
-       // [JsonIgnore]
-       // public ICollection<StudentUniversity> StudentUniversities { get; set; }
-
-
-
     }
-
     public class Address
     {
         [Key]
@@ -39,5 +31,4 @@ namespace UniversityStudentApi1.Models
         public string Zip { get; set; }
         public string Country { get; set; }
     }
-
 }

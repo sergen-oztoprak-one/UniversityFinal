@@ -6,5 +6,4 @@ namespace UniversityStudentApi1.Repositories.Abstract
     {
        
     }
-
 }

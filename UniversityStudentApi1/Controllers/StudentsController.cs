@@ -13,10 +13,8 @@ namespace UniversityStudentApi1.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IStudentRepository _studentRepository;
-       
         public StudentsController(IStudentRepository studentRepository)
         {
-            
             _studentRepository = studentRepository;
         }
         [HttpGet]
@@ -25,18 +23,16 @@ namespace UniversityStudentApi1.Controllers
             var students = await _studentRepository.GetAllAsync();
             return Ok(students);
         }
-
         [HttpGet("{StudentId}")]
         public async Task<IActionResult> Get(int StudentId)
         {
             var student = await _studentRepository.GetByIdAsync(StudentId);
             if (student == null)
             {
-                return NotFound();
+              return NotFound();
             }
             return Ok(student);
         }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Student student)
         {
@@ -44,19 +40,16 @@ namespace UniversityStudentApi1.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             await _studentRepository.AddAsync(student);
             return CreatedAtAction(nameof(Get), new { id = student.StudentId }, student);
         }
-
             [HttpPut("{studentId}")]
             public async Task<IActionResult> Put(int studentId, [FromBody] Student student)
             {
-           
-            if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+              if (!ModelState.IsValid)
+              {
+                  return BadRequest(ModelState);
+              }
                 var existingStudent = await _studentRepository.GetByIdAsync(studentId); 
                 if (existingStudent == null)
                 {
@@ -67,9 +60,6 @@ namespace UniversityStudentApi1.Controllers
                 await _studentRepository.UpdateAsync(existingStudent);
                     return NoContent();
             }
-
-
-
         [HttpDelete("{StudentId}")]
         public async Task<IActionResult> Delete(int StudentId)
         {

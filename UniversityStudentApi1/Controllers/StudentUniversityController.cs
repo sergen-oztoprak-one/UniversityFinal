@@ -10,20 +10,15 @@ namespace UniversityStudentApi1.Controllers
     public class StudentUniversityController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-       
         public StudentUniversityController(ApplicationDbContext context)
         {
             _context = context;
         }
-
-    
         [HttpPost]
         public async Task<IActionResult> AddStudentToUniversity(int studentId, int universityId)
         {
             var student = await _context.Students.FindAsync(studentId);
             var university = await _context.Universities.FindAsync(universityId);
-
             if (student == null || university == null)
             {
                 return NotFound("Student or University not found.");
@@ -33,14 +28,10 @@ namespace UniversityStudentApi1.Controllers
                 StudentId = studentId,
                 UniversityId = universityId
             };
-
             _context.StudentUniversities.Add(studentUniversity);
             await _context.SaveChangesAsync();
-
             return Ok();
         }
-
-      
         [HttpGet]
         public async Task<IActionResult> GetStudentsByUniversity(int universityId)
         {
@@ -48,12 +39,10 @@ namespace UniversityStudentApi1.Controllers
                 .Where(su => su.UniversityId == universityId)
                 .Select(su => su.Student)
                 .ToListAsync();
-
             if (students == null || !students.Any())
             {
                 return NotFound("Bu üniversiteye kayıtlı öğrenci bulunamadı.");
             }
-
             return Ok(students);
         }
     }

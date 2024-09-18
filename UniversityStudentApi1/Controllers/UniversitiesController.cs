@@ -4,7 +4,6 @@ using UniversityStudentApi1.Repositories.Abstract;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-using UniversityStudentApi1.Repositories.Abstract;
 using Repositories.Abstract;
 
 namespace UniversityStudentApi1.Controllers
@@ -14,25 +13,20 @@ namespace UniversityStudentApi1.Controllers
     public class UniversitiesController : ControllerBase
     {
         private readonly IUniversityRepository _universityRepository;
-
         public UniversitiesController(IUniversityRepository universityRepository)
         {
             _universityRepository = universityRepository;
         }
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
                 var universities = await _universityRepository.GetAllAsync();
-
-                // Eğer üniversiteler bulunamazsa, boş liste dönebilirsiniz
                 if (universities == null || !universities.Any())
                 {
                     return NotFound("No universities found.");
                 }
-
                 return Ok(universities);
             }
             catch (Exception ex)
@@ -41,7 +35,6 @@ namespace UniversityStudentApi1.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
         }
-
         [HttpGet("{Name}")]
         public async Task<IActionResult> Get(string Name)
         {
@@ -52,7 +45,6 @@ namespace UniversityStudentApi1.Controllers
             }
             return Ok(university);
         }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] University university)
         {
@@ -60,11 +52,9 @@ namespace UniversityStudentApi1.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             await _universityRepository.AddAsync(university);
             return CreatedAtAction(nameof(Get), new { name = university.Name }, university);
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] University university)
         {
@@ -72,11 +62,9 @@ namespace UniversityStudentApi1.Controllers
             {
                 return BadRequest();
             }
-
             await _universityRepository.UpdateAsync(university);
             return NoContent();
         }
-
         [HttpDelete("{Name}")]
         public async Task<IActionResult> Delete(string Name)
         {

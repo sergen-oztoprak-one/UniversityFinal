@@ -57,6 +57,14 @@ namespace UniversityStudentApi1.Controllers
                 }
                 existingStudent.Name = student.Name;    
                 existingStudent.Age = student.Age;
+                existingStudent.Gender = student.Gender;
+                existingStudent.Address = student.Address;
+                existingStudent.AddressId = student.AddressId;
+                existingStudent.Email = student.Email;
+                existingStudent.Phone = student.Phone;
+                existingStudent.Courses = student.Courses;
+                existingStudent.GPA = student.GPA;
+                existingStudent.Image = student.Image;
                 await _studentRepository.UpdateAsync(existingStudent);
                     return NoContent();
             }
